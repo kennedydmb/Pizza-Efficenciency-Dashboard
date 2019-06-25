@@ -18,6 +18,7 @@ function makeGraphs(error, staffData) {
     show_rank_balance(ndx);
     show_average_time_by_rank(ndx);
     show_years_of_service_vs_rank(ndx);
+    show_years_service_vs_pizza_time(ndx);
 
     dc.renderAll();
 }
@@ -154,4 +155,44 @@ function show_years_of_service_vs_rank(ndx){
         .xAxisLabel("Rank")
         .yAxisLabel("Years")
         .yAxis().ticks(10);
+}
+
+
+function show_years_service_vs_pizza_time(ndx){
+    
+    var rankColors = d3.scale.ordinal()
+        .domain(["Manager", "MIT", "Instore"])
+        .range(["Red", "Blue", "White"]);
+        
+    //creates years of service axis, to work out the bounds of the x axis
+    var yearsDim = ndx.dimension(dc.pluck("YearsService"));
+    
+    //Returns an array with 2 parts, one with years service one with pizza time
+    var pizzaTimeDim = ndx.dimension(function(d){
+        return [d.YearsService, d.PizzaTime, d.Name, d.Rank]
+    });
+    var experienceRankGroup = pizzaTimeDim.group();
+    
+    var minExperience = yearsDim.bottom(1)[0].YearsService;
+    var maxExperience = yearsDim.top(1)[0].YearsService;
+    
+    dc.scatterPlot('#years-service-against-pizza-time')
+        .width(400)
+        .height(300)
+        .x(d3.scale.linear().domain([minExperience, maxExperience]))
+        .brushOn(false)
+        .symbolSize(8)
+        .clipPadding(10)
+        .yAxisLabel("Seconds")
+        .title(function(d){
+            return d.key[2] + ", time: " + d.key[1] +"s"
+        })
+        .colorAccessor(function(d){
+            return d.key[3];
+        })
+        .colors(rankColors)
+        .dimension(pizzaTimeDim)
+        .group(experienceRankGroup)
+        .margins({ top: 10, right: 50, bottom: 30, left: 50 });
+    
 }
