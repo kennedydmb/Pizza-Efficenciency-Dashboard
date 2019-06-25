@@ -1,8 +1,10 @@
-Name,Rank,Years of Service,Course Passed,Pizza time
+Name,Rank,YearsService,Course,PizzaTime
+Scott,Manager,8,AMC,45
+David,Manager,12,AMC,40
 Darren,MIT,11,AMC,30
 Alison,MIT,3,AMC,32
 Kimberly,MIT,2,AMC,37
-Scott,Instore,5,BMC,55
+John,Instore,5,BMC,55
 Chris,MIT,3,AMC,38
 Mark,Instore,6,Intro,99
 Wendy,Instore,1,Intro,117
