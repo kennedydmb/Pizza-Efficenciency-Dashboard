@@ -19,6 +19,7 @@ function makeGraphs(error, staffData) {
     show_average_time_by_rank(ndx);
     show_years_of_service_vs_rank(ndx);
     show_years_service_vs_pizza_time(ndx);
+    show_course_balance(ndx);
 
     dc.renderAll();
 }
@@ -157,12 +158,11 @@ function show_years_of_service_vs_rank(ndx){
         .yAxis().ticks(10);
 }
 
-
 function show_years_service_vs_pizza_time(ndx){
     
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
-        .range(["Red", "Blue", "White"]);
+        .range(["Red", "Blue", "Green"]);
         
     //creates years of service axis, to work out the bounds of the x axis
     var yearsDim = ndx.dimension(dc.pluck("YearsService"));
@@ -195,4 +195,25 @@ function show_years_service_vs_pizza_time(ndx){
         .group(experienceRankGroup)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 });
     
+}
+
+function show_course_balance(ndx) {
+    //takes all of the ranks from the Results.csv and counts how many are in each
+    var dim = ndx.dimension(dc.pluck('Course'));
+    //then groups these together
+    var group = dim.group();
+
+    //creates a bar chart using the rank vs how many are in each rank
+    dc.barChart("#course-balance")
+        .width(400)
+        .height(300)
+        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+        .dimension(dim)
+        .group(group)
+        .transitionDuration(500)
+        .x(d3.scale.ordinal())
+        .xUnits(dc.units.ordinal)
+        .elasticY(true)
+        .xAxisLabel("Course")
+        .yAxis().ticks(20);
 }
