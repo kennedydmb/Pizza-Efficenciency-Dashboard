@@ -10,6 +10,7 @@
 
     <!-- Link to bootswatch theme, bootstrap, and DC -->
     <link rel="stylesheet" href="static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="static/css/dc.min.css" type="text/css" />
 
     <!-- Script for 3rd party js -->
@@ -24,7 +25,7 @@
 
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <h1>Staff Results Dashboard</h1>
         </div>
@@ -33,21 +34,28 @@
             <div id="rank-selector"></div>
         </div>
 
+        <hr/>
+
         <div class="row">
-            <div class="col-md-4" id="rank-balance"></div>
+            <div class="col-md-3" id="rank-balance"></div>
 
-            <div class="col-md-4" id="average-time-rank"></div>
+            <div class="col-md-3" id="average-time-rank"></div>
 
-            <div class="col-md-4" id="years-service-against-rank"></div>
+            <div class="col-md-3" id="years-service-against-rank"></div>
+
+            <div class="col-md-3" id="years-service-against-pizza-time"></div>
         </div>
+
+        <hr/>
+
         <div class="row">
-            <div class="col-md-4" id="years-service-against-pizza-time"></div>
+            <div class="col-md-3" id="course-balance"></div>
 
-            <div class="col-md-4" id="course-balance"></div>
+            <div id="fastest-pizza-maker"></div>
         </div>
+
     </div>
 
-    </div>
 </body>
 
 </html>
