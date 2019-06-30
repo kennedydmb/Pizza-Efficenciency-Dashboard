@@ -5,12 +5,12 @@ queue()
 //function for making and rendering graphs
 function makeGraphs(error, staffData) {
     var ndx = crossfilter(staffData);
-    
-    staffData.forEach(function(d){
+
+    staffData.forEach(function(d) {
         d.PizzaTime = parseInt(d.PizzaTime);
     })
-    
-    staffData.forEach(function(d){
+
+    staffData.forEach(function(d) {
         d.YearsService = parseInt(d.YearsService);
     })
 
@@ -20,6 +20,8 @@ function makeGraphs(error, staffData) {
     show_years_of_service_vs_rank(ndx);
     show_years_service_vs_pizza_time(ndx);
     show_course_balance(ndx);
+    show_fastest_and_slowest_pizza_maker(ndx);
+    show_percentage_split_of_under_40_seconds(ndx);
 
     dc.renderAll();
 }
@@ -35,8 +37,6 @@ function show_rank_selector(ndx) {
         .dimension(dim)
         .group(group);
 }
-
-
 //function to show the balance in rank
 function show_rank_balance(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
@@ -89,14 +89,14 @@ function show_average_time_by_rank(ndx) {
 
 
     var averageTimeByRank = dim.group().reduce(add_item, remove_item, initialise);
-    
+
     dc.barChart("#average-time-rank")
         .width(400)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .dimension(dim)
         .group(averageTimeByRank)
-        .valueAccessor(function(d){
+        .valueAccessor(function(d) {
             return d.value.average;
         })
         .transitionDuration(500)
@@ -107,9 +107,8 @@ function show_average_time_by_rank(ndx) {
         .yAxisLabel("Seconds")
         .yAxis().ticks(10);
 }
-
 //function to show average years of service vs rank
-function show_years_of_service_vs_rank(ndx){
+function show_years_of_service_vs_rank(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
     var dim = ndx.dimension(dc.pluck('Rank'));
 
@@ -139,14 +138,14 @@ function show_years_of_service_vs_rank(ndx){
 
 
     var averageYearsVsRank = dim.group().reduce(add_item, remove_item, initialise);
-    
+
     dc.barChart("#years-service-against-rank")
         .width(400)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .dimension(dim)
         .group(averageYearsVsRank)
-        .valueAccessor(function(d){
+        .valueAccessor(function(d) {
             return d.value.average;
         })
         .transitionDuration(500)
@@ -158,24 +157,24 @@ function show_years_of_service_vs_rank(ndx){
         .yAxis().ticks(10);
 }
 
-function show_years_service_vs_pizza_time(ndx){
-    
+function show_years_service_vs_pizza_time(ndx) {
+
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["Red", "Blue", "Green"]);
-        
+
     //creates years of service axis, to work out the bounds of the x axis
     var yearsDim = ndx.dimension(dc.pluck("YearsService"));
-    
-    //Returns an array with 2 parts, one with years service one with pizza time
-    var pizzaTimeDim = ndx.dimension(function(d){
+
+    //Returns an array with 4 parts
+    var pizzaTimeDim = ndx.dimension(function(d) {
         return [d.YearsService, d.PizzaTime, d.Name, d.Rank]
     });
     var experienceRankGroup = pizzaTimeDim.group();
-    
+
     var minExperience = yearsDim.bottom(1)[0].YearsService;
     var maxExperience = yearsDim.top(1)[0].YearsService;
-    
+
     dc.scatterPlot('#years-service-against-pizza-time')
         .width(400)
         .height(300)
@@ -184,17 +183,17 @@ function show_years_service_vs_pizza_time(ndx){
         .symbolSize(8)
         .clipPadding(10)
         .yAxisLabel("Seconds")
-        .title(function(d){
-            return d.key[2] + ", time: " + d.key[1] +"s"
+        .title(function(d) {
+            return d.key[2] + ", time: " + d.key[1] + "s"
         })
-        .colorAccessor(function(d){
+        .colorAccessor(function(d) {
             return d.key[3];
         })
         .colors(rankColors)
         .dimension(pizzaTimeDim)
         .group(experienceRankGroup)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 });
-    
+
 }
 
 function show_course_balance(ndx) {
@@ -216,4 +215,59 @@ function show_course_balance(ndx) {
         .elasticY(true)
         .xAxisLabel("Course")
         .yAxis().ticks(20);
+}
+
+function show_fastest_and_slowest_pizza_maker(ndx) {
+
+    var timeDim = ndx.dimension(function(d) {
+        return [d.PizzaTime, d.Name]
+    });
+
+    var minStaffPizzaTimeName = timeDim.bottom(1)[0].Name;
+    var maxStaffPizzaTimeName = timeDim.top(1)[0].Name;
+
+    d3.select('#minStaffPizzaTimeName').text(minStaffPizzaTimeName);
+
+    return minStaffPizzaTimeName;
+}
+
+function show_number_of_staff(ndx) {}
+
+
+function show_percentage_split_of_under_40_seconds(ndx) {
+    var percentageUnder40 = ndx.groupAll().reduce(
+        function(p, v) {
+            p.count++;
+            if (v.PizzaTime < 40) {
+                p.under_40++;
+            }
+            return p;
+        },
+        function(p, v) {
+            p.count--;
+            if (v.PizzaTime < 40) {  
+                p.under_40--;
+            }
+            return p;
+        },
+        function(p, v) {
+            return { count: 0, under_40: 0 }
+        },
+
+    );
+    
+    dc.numberDisplay("#under40Secs")
+        .formatNumber(d3.format(".2%"))
+        .valueAccessor(function(d){
+            if (d.count == 0){
+                return 0;
+            } else {
+                return (d.under_40/d.count);
+            }
+        })
+        .group(percentageUnder40);
+}
+
+function show_longest_and_shortest_serving_worker(ndx) {
+
 }
