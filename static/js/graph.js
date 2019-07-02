@@ -222,11 +222,6 @@ function show_fastest_and_slowest_pizza_maker(ndx) {
     
     var timeDim = ndx.dimension(dc.pluck("PizzaTime"));
 
-    //Returns an array with 4 parts
-    var pizzaTimeDim = ndx.dimension(function(d) {
-        return [d.PizzaTime, d.Name, d.Rank]
-    });
-
     var minPizzaTimeName = timeDim.bottom(1)[0].Name;
     var maxPizzaTimeName = timeDim.top(1)[0].Name;
 
