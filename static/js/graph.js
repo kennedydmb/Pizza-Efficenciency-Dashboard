@@ -20,6 +20,7 @@ function makeGraphs(error, staffData) {
     show_years_of_service_vs_rank(ndx);
     show_years_service_vs_pizza_time(ndx);
     show_course_balance(ndx);
+    show_number_of_staff(ndx);
     show_fastest_and_slowest_pizza_maker(ndx);
     show_percentage_split_of_under_40_seconds(ndx);
 
@@ -218,34 +219,78 @@ function show_course_balance(ndx) {
 }
 
 function show_fastest_and_slowest_pizza_maker(ndx) {
+    
+    var timeDim = ndx.dimension(dc.pluck("PizzaTime"));
 
-    var timeDim = ndx.dimension(function(d) {
-        return [d.PizzaTime, d.Name]
+    //Returns an array with 4 parts
+    var pizzaTimeDim = ndx.dimension(function(d) {
+        return [d.PizzaTime, d.Name, d.Rank]
     });
 
-    var minStaffPizzaTimeName = timeDim.bottom(1)[0].Name;
-    var maxStaffPizzaTimeName = timeDim.top(1)[0].Name;
+    var minPizzaTimeName = timeDim.bottom(1)[0].Name;
+    var maxPizzaTimeName = timeDim.top(1)[0].Name;
 
-    d3.select('#minStaffPizzaTimeName').text(minStaffPizzaTimeName);
+    d3.select('#minPizzaTimeName')
+        .text(minPizzaTimeName);
+    d3.select('#maxPizzaTimeName')
+        .text(maxPizzaTimeName);
 
-    return minStaffPizzaTimeName;
 }
 
-function show_number_of_staff(ndx) {}
+function show_number_of_staff(ndx) {
+    var dim = ndx.dimension(dc.pluck('Rank'));
 
+    function add_item(p, v) {
+        if (v.Rank = "Manager") {
+            p.manager_count++;
+        }
+        else if (v.Rank = "MIT") {
+            p.mit_count++;
+        }
+        else if (v.Rank = "Instore") {
+            p.instore_count++;
+        }
+        return p;
+    }
+    function remove_item(p, v) {
+        if (v.Rank = "Manager") {
+            p.manager_count--;
+        }
+        else if (v.Rank = "MIT") {
+            p.mit_count--;
+        }
+        else if (v.Rank = "Instore") {
+            p.instore_count--;
+        }
+        return p;
+    }
+    function initialise(p, v) {
+        return { manager_count: 0, mit_count: 0, instore_count: 0 }
+    }
+    
+    var staffCounter = dim.group().reduce(add_item, remove_item, initialise);
+    ;
+
+    dc.numberDisplay("#managerCount")
+        .formatNumber(d3.format(".0"))
+        .valueAccessor(function(d) {
+            return d.value.manager_count;
+        })
+        .group(staffCounter);
+}
 
 function show_percentage_split_of_under_40_seconds(ndx) {
     var percentageUnder40 = ndx.groupAll().reduce(
         function(p, v) {
             p.count++;
-            if (v.PizzaTime < 40) {
+            if (v.PizzaTime <= 40) {
                 p.under_40++;
             }
             return p;
         },
         function(p, v) {
             p.count--;
-            if (v.PizzaTime < 40) {  
+            if (v.PizzaTime <= 40) {
                 p.under_40--;
             }
             return p;
@@ -253,19 +298,51 @@ function show_percentage_split_of_under_40_seconds(ndx) {
         function(p, v) {
             return { count: 0, under_40: 0 }
         },
-
     );
-    
+
     dc.numberDisplay("#under40Secs")
         .formatNumber(d3.format(".2%"))
-        .valueAccessor(function(d){
-            if (d.count == 0){
+        .valueAccessor(function(d) {
+            if (d.count == 0) {
                 return 0;
-            } else {
-                return (d.under_40/d.count);
+            }
+            else {
+                return (d.under_40 / d.count);
             }
         })
         .group(percentageUnder40);
+
+    var percentageOver40 = ndx.groupAll().reduce(
+        function(p, v) {
+            p.count++;
+            if (v.PizzaTime > 40) {
+                p.over_40++;
+            }
+            return p;
+        },
+        function(p, v) {
+            p.count--;
+            if (v.PizzaTime > 40) {
+                p.over_40--;
+            }
+            return p;
+        },
+        function(p, v) {
+            return { count: 0, over_40: 0 }
+        },
+    );
+
+    dc.numberDisplay("#over40Secs")
+        .formatNumber(d3.format(".2%"))
+        .valueAccessor(function(d) {
+            if (d.count == 0) {
+                return 0;
+            }
+            else {
+                return (d.over_40 / d.count);
+            }
+        })
+        .group(percentageOver40);
 }
 
 function show_longest_and_shortest_serving_worker(ndx) {
