@@ -219,12 +219,13 @@ function show_course_balance(ndx) {
 }
 
 function show_fastest_and_slowest_pizza_maker(ndx) {
-    
+    console.log(ndx, "ndx");
     var timeDim = ndx.dimension(dc.pluck("PizzaTime"));
-
+    console.log(timeDim, "timeDim");
     var minPizzaTimeName = timeDim.bottom(1)[0].Name;
     var maxPizzaTimeName = timeDim.top(1)[0].Name;
-
+    console.log(minPizzaTimeName, "minPizzaTimeName");
+    console.log(maxPizzaTimeName, "maxPizzaTimeName");
     d3.select('#minPizzaTimeName')
         .text(minPizzaTimeName);
     d3.select('#maxPizzaTimeName')
@@ -236,40 +237,56 @@ function show_number_of_staff(ndx) {
     var dim = ndx.dimension(dc.pluck('Rank'));
 
     function add_item(p, v) {
-        if (v.Rank = "Manager") {
+        if (v.Rank == "Manager") {
             p.manager_count++;
         }
-        else if (v.Rank = "MIT") {
+        else if (v.Rank == "MIT") {
             p.mit_count++;
         }
-        else if (v.Rank = "Instore") {
+        else if (v.Rank == "Instore") {
             p.instore_count++;
         }
         return p;
     }
+
     function remove_item(p, v) {
-        if (v.Rank = "Manager") {
+        if (v.Rank == "Manager") {
             p.manager_count--;
         }
-        else if (v.Rank = "MIT") {
+        else if (v.Rank == "MIT") {
             p.mit_count--;
         }
-        else if (v.Rank = "Instore") {
+        else if (v.Rank == "Instore") {
             p.instore_count--;
         }
         return p;
     }
-    function initialise(p, v) {
-        return { manager_count: 0, mit_count: 0, instore_count: 0 }
-    }
-    
-    var staffCounter = dim.group().reduce(add_item, remove_item, initialise);
-    ;
 
+    function initialise(p, v) {
+        return { manager_count: 0, mit_count: 0, instore_count: 0 };
+
+    }
+
+    var staffCounter = dim.group().reduce(add_item, remove_item, initialise);;
+    
     dc.numberDisplay("#managerCount")
         .formatNumber(d3.format(".0"))
         .valueAccessor(function(d) {
             return d.value.manager_count;
+        })
+        .group(staffCounter);
+
+    dc.numberDisplay("#mitCount")
+        .formatNumber(d3.format(".0"))
+        .valueAccessor(function(d) {
+            return d.value.mit_count;
+        })
+        .group(staffCounter);
+
+    dc.numberDisplay("#instoreCount")
+        .formatNumber(d3.format(".0"))
+        .valueAccessor(function(d) {
+            return d.value.instore_count;
         })
         .group(staffCounter);
 }
