@@ -8,10 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pizza Efficiency Dashboard</title>
 
-    <!-- Link to bootswatch theme, bootstrap, and DC -->
+    <!-- Link to bootswatch theme, bootstrap, DC and our css -->
     <link rel="stylesheet" href="static/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="static/css/dc.min.css" type="text/css" />
+    <link rel="stylesheet" href="static/css/style.css" type="text/css" />
 
     <!-- Script for 3rd party js -->
     <script type="text/javascript" src="static/js/d3.min.js"></script>
@@ -25,7 +26,7 @@
 
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid background">
         <div class="row">
             <h1>Staff Results Dashboard</h1>
         </div>
@@ -51,13 +52,13 @@
         <div class="row">
             <div class="col-md-3" id="course-balance"></div>
             <!-- Overview area -->
-            <div class="col-md-9">
+            <div class="col-md-8 overview-box">
                 <p class="text-center">OVERVIEW</p>
                 <!-- Number of staff by rank -->
                 <div class="col-md-4">
                     <p>Managers: <span id="managerCount"></span></p>
-                    <p>Managers In Training: </p>
-                    <p>Instores: </p>
+                    <p>Managers In Training: <span id="mitCount"></span></p>
+                    <p>Instores: <span id="instoreCount"></span></p>
                 </div>
                 <!-- Fastest and slowest pizza makers -->
                 <div class="col-md-4">
@@ -71,8 +72,8 @@
                 </div >
                 <!-- Longest and shortest serving workers -->
                 <div class="col-md-4">
-                    <p>Longest Serving Worker: </p>
-                    <p>Shortest Serving Worker: </p>
+                    <p>Longest Serving Worker: <span id="maxServiceName"></span></p>
+                    <p>Shortest Serving Worker: <span id="minServiceName"></span></p>
                 </div>
             </div>
         </div>
