@@ -1,5 +1,5 @@
 queue()
-    .defer(d3.json, "data/Results.json")
+    .defer(d3.json, "data/results.json")
     .await(makeGraphs)
 
 //function for making and rendering graphs
@@ -16,7 +16,7 @@ function makeGraphs(error, staffData) {
 
     show_rank_selector(ndx);
     show_rank_balance(ndx);
-    show_average_time_by_rank(ndx);
+    show_average_time_by_rank(ndx)
     show_years_of_service_vs_rank(ndx);
     show_years_service_vs_pizza_time(ndx);
     show_course_balance(ndx);
@@ -45,7 +45,7 @@ function show_rank_balance(ndx) {
     var dim = ndx.dimension(dc.pluck('Rank'));
     //then groups these together
     var group = dim.group();
-    
+
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["Red", "Blue", "Green"]);
@@ -72,7 +72,7 @@ function show_rank_balance(ndx) {
 function show_average_time_by_rank(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
     var dim = ndx.dimension(dc.pluck('Rank'));
-    
+
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["Red", "Blue", "Green"]);
@@ -129,7 +129,7 @@ function show_average_time_by_rank(ndx) {
 function show_years_of_service_vs_rank(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
     var dim = ndx.dimension(dc.pluck('Rank'));
-    
+
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["Red", "Blue", "Green"]);
@@ -227,17 +227,17 @@ function show_course_balance(ndx) {
     var dim = ndx.dimension(dc.pluck('Course'));
     //then groups these together
     var group = dim.group();
-    
+
     var courseColors = d3.scale.ordinal()
         .domain(["AMC", "BMC", "Intro"])
         .range(["purple", "orange", "maroon"]);
-        
-    var courseColorDim = ndx.dimension(function(d){
+
+    var courseColorDim = ndx.dimension(function(d) {
         return [d.Course];
     })
-    
-    
-    
+
+
+
     //creates a bar chart using the rank vs how many are in each rank
     dc.barChart("#course-balance")
         .width(400)
@@ -258,13 +258,9 @@ function show_course_balance(ndx) {
 }
 
 function show_fastest_and_slowest_pizza_maker(ndx) {
-    console.log(ndx, "ndx");
     var timeDim = ndx.dimension(dc.pluck("PizzaTime"));
-    console.log(timeDim, "timeDim");
     var minPizzaTimeName = timeDim.bottom(1)[0].Name;
     var maxPizzaTimeName = timeDim.top(1)[0].Name;
-    console.log(minPizzaTimeName, "minPizzaTimeName");
-    console.log(maxPizzaTimeName, "maxPizzaTimeName");
     d3.select('#minPizzaTimeName')
         .text(minPizzaTimeName);
     d3.select('#maxPizzaTimeName')
@@ -306,28 +302,26 @@ function show_number_of_staff(ndx) {
 
     }
 
-    var staffCounter = dim.group().reduce(add_item, remove_item, initialise);;
-
-
-
-    dc.numberDisplay("#mitCount")
-        .formatNumber(d3.format(".0"))
-        .valueAccessor(function(d) {
-            return d.value.mit_count;
-        })
-        .group(staffCounter);
-
+    var staffCounter = ndx.groupAll().reduce(add_item, remove_item, initialise);
+    
     dc.numberDisplay("#managerCount")
         .formatNumber(d3.format(".0"))
         .valueAccessor(function(d) {
-            return d.value.manager_count;
+            return d.manager_count; // no .value here
         })
         .group(staffCounter);
-
+        
+    dc.numberDisplay("#mitCount")
+        .formatNumber(d3.format(".0"))
+        .valueAccessor(function(d) {
+            return d.mit_count; // no .value here
+        })
+        .group(staffCounter);
+        
     dc.numberDisplay("#instoreCount")
         .formatNumber(d3.format(".0"))
         .valueAccessor(function(d) {
-            return d.value.instore_count;
+            return d.instore_count; // no .value here
         })
         .group(staffCounter);
 }
@@ -402,8 +396,6 @@ function show_longest_and_shortest_serving_worker(ndx) {
     var serviceDim = ndx.dimension(dc.pluck("YearsService"));
     var minServiceName = serviceDim.bottom(1)[0].Name;
     var maxServiceName = serviceDim.top(1)[0].Name;
-    console.log(minPizzaTimeName, "minServiceName");
-    console.log(maxPizzaTimeName, "maxServiceName");
     d3.select('#minServiceName')
         .text(minServiceName);
     d3.select('#maxServiceName')
