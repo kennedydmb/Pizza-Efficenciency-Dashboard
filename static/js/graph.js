@@ -1,5 +1,5 @@
 queue()
-    .defer(d3.csv, "data/Results.csv")
+    .defer(d3.json, "data/Results.json")
     .await(makeGraphs)
 
 //function for making and rendering graphs
@@ -23,6 +23,7 @@ function makeGraphs(error, staffData) {
     show_number_of_staff(ndx);
     show_fastest_and_slowest_pizza_maker(ndx);
     show_percentage_split_of_under_40_seconds(ndx);
+    show_longest_and_shortest_serving_worker(ndx);
 
     dc.renderAll();
 }
@@ -44,6 +45,10 @@ function show_rank_balance(ndx) {
     var dim = ndx.dimension(dc.pluck('Rank'));
     //then groups these together
     var group = dim.group();
+    
+    var rankColors = d3.scale.ordinal()
+        .domain(["Manager", "MIT", "Instore"])
+        .range(["Red", "Blue", "Green"]);
 
     //creates a bar chart using the rank vs how many are in each rank
     dc.barChart("#rank-balance")
@@ -56,6 +61,10 @@ function show_rank_balance(ndx) {
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .elasticY(true)
+        .colorAccessor(function(d) {
+            return d.key[3];
+        })
+        .colors(rankColors)
         .xAxisLabel("Rank")
         .yAxis().ticks(20);
 }
@@ -63,6 +72,10 @@ function show_rank_balance(ndx) {
 function show_average_time_by_rank(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
     var dim = ndx.dimension(dc.pluck('Rank'));
+    
+    var rankColors = d3.scale.ordinal()
+        .domain(["Manager", "MIT", "Instore"])
+        .range(["Red", "Blue", "Green"]);
 
     function add_item(p, v) {
         p.count++;
@@ -104,6 +117,10 @@ function show_average_time_by_rank(ndx) {
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .elasticY(true)
+        .colorAccessor(function(d) {
+            return d.key[3];
+        })
+        .colors(rankColors)
         .xAxisLabel("Rank")
         .yAxisLabel("Seconds")
         .yAxis().ticks(10);
@@ -112,6 +129,10 @@ function show_average_time_by_rank(ndx) {
 function show_years_of_service_vs_rank(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
     var dim = ndx.dimension(dc.pluck('Rank'));
+    
+    var rankColors = d3.scale.ordinal()
+        .domain(["Manager", "MIT", "Instore"])
+        .range(["Red", "Blue", "Green"]);
 
     function add_item(p, v) {
         p.count++;
@@ -153,6 +174,10 @@ function show_years_of_service_vs_rank(ndx) {
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .elasticY(true)
+        .colorAccessor(function(d) {
+            return d.key[3];
+        })
+        .colors(rankColors)
         .xAxisLabel("Rank")
         .yAxisLabel("Years")
         .yAxis().ticks(10);
@@ -202,7 +227,17 @@ function show_course_balance(ndx) {
     var dim = ndx.dimension(dc.pluck('Course'));
     //then groups these together
     var group = dim.group();
-
+    
+    var courseColors = d3.scale.ordinal()
+        .domain(["AMC", "BMC", "Intro"])
+        .range(["purple", "orange", "maroon"]);
+        
+    var courseColorDim = ndx.dimension(function(d){
+        return [d.Course];
+    })
+    
+    
+    
     //creates a bar chart using the rank vs how many are in each rank
     dc.barChart("#course-balance")
         .width(400)
@@ -214,6 +249,10 @@ function show_course_balance(ndx) {
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .elasticY(true)
+        .colorAccessor(function(d) {
+            return d.key[0];
+        })
+        .colors(courseColors)
         .xAxisLabel("Course")
         .yAxis().ticks(20);
 }
@@ -268,18 +307,20 @@ function show_number_of_staff(ndx) {
     }
 
     var staffCounter = dim.group().reduce(add_item, remove_item, initialise);;
-    
-    dc.numberDisplay("#managerCount")
-        .formatNumber(d3.format(".0"))
-        .valueAccessor(function(d) {
-            return d.value.manager_count;
-        })
-        .group(staffCounter);
+
+
 
     dc.numberDisplay("#mitCount")
         .formatNumber(d3.format(".0"))
         .valueAccessor(function(d) {
             return d.value.mit_count;
+        })
+        .group(staffCounter);
+
+    dc.numberDisplay("#managerCount")
+        .formatNumber(d3.format(".0"))
+        .valueAccessor(function(d) {
+            return d.value.manager_count;
         })
         .group(staffCounter);
 
@@ -358,5 +399,14 @@ function show_percentage_split_of_under_40_seconds(ndx) {
 }
 
 function show_longest_and_shortest_serving_worker(ndx) {
+    var serviceDim = ndx.dimension(dc.pluck("YearsService"));
+    var minServiceName = serviceDim.bottom(1)[0].Name;
+    var maxServiceName = serviceDim.top(1)[0].Name;
+    console.log(minPizzaTimeName, "minServiceName");
+    console.log(maxPizzaTimeName, "maxServiceName");
+    d3.select('#minServiceName')
+        .text(minServiceName);
+    d3.select('#maxServiceName')
+        .text(maxServiceName);
 
 }
