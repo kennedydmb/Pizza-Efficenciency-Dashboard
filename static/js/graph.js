@@ -14,7 +14,6 @@ function makeGraphs(error, staffData) {
         d.YearsService = parseInt(d.YearsService);
     })
 
-    show_rank_selector(ndx);
     show_rank_balance(ndx);
     show_average_time_by_rank(ndx)
     show_years_of_service_vs_rank(ndx);
@@ -26,19 +25,9 @@ function makeGraphs(error, staffData) {
     show_longest_and_shortest_serving_worker(ndx);
 
     dc.renderAll();
+
 }
 
-//function to create a dropdown menu to select by rank
-function show_rank_selector(ndx) {
-    //takes all of the ranks from the Results.csv and counts how many are in each
-    dim = ndx.dimension(dc.pluck('Rank'))
-    //then groups these together
-    group = dim.group()
-    //allows the user to select rank from a list
-    dc.selectMenu("#rank-selector")
-        .dimension(dim)
-        .group(group);
-}
 //function to show the balance in rank
 function show_rank_balance(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
@@ -48,7 +37,7 @@ function show_rank_balance(ndx) {
 
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
-        .range(["Red", "Blue", "Green"]);
+        .range(["#FFAA00", "#6BE400", "#AA00A2"]);
 
     //creates a bar chart using the rank vs how many are in each rank
     dc.barChart("#rank-balance")
@@ -75,7 +64,7 @@ function show_average_time_by_rank(ndx) {
 
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
-        .range(["Red", "Blue", "Green"]);
+        .range(["#FFAA00", "#6BE400", "#AA00A2"]);
 
     function add_item(p, v) {
         p.count++;
@@ -132,7 +121,7 @@ function show_years_of_service_vs_rank(ndx) {
 
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
-        .range(["Red", "Blue", "Green"]);
+        .range(["#FFAA00", "#6BE400", "#AA00A2"]);
 
     function add_item(p, v) {
         p.count++;
@@ -187,7 +176,7 @@ function show_years_service_vs_pizza_time(ndx) {
 
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
-        .range(["Red", "Blue", "Green"]);
+        .range(["#FFAA00", "#6BE400", "#AA00A2"]);
 
     //creates years of service axis, to work out the bounds of the x axis
     var yearsDim = ndx.dimension(dc.pluck("YearsService"));
@@ -261,10 +250,16 @@ function show_fastest_and_slowest_pizza_maker(ndx) {
     var timeDim = ndx.dimension(dc.pluck("PizzaTime"));
     var minPizzaTimeName = timeDim.bottom(1)[0].Name;
     var maxPizzaTimeName = timeDim.top(1)[0].Name;
+    var minPizzaTimeNamePosition = timeDim.bottom(1)[0].Rank;
+    var maxPizzaTimeNamePosition = timeDim.top(1)[0].Rank;
     d3.select('#minPizzaTimeName')
         .text(minPizzaTimeName);
     d3.select('#maxPizzaTimeName')
         .text(maxPizzaTimeName);
+    d3.select('#minPizzaTimeNamePosition')
+        .text(minPizzaTimeNamePosition);
+    d3.select('#maxPizzaTimeNamePosition')
+        .text(maxPizzaTimeNamePosition);   
 
 }
 

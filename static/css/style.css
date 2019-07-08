@@ -1,9 +1,49 @@
+#managerCount {
+  color: purple;
+}
+
 body {
-  background-color: #0A67A3;
+  background-image: linear-gradient(to bottom, #06266F, black);
+}
+
+h1 {
+  text-align: center;
+  color: #e3e3e3;
+}
+
+.chart-box,
+.box {
+  background-color: #4671D5;
+}
+
+.chart-box {
+  border-radius: 3px;
+  margin: 20px 20px 20px 20px;
+  padding: 5px 5px 5px 5px;
+  height: 350px;
+  
+}
+
+.box {
+  border-radius: 5px;
+  height: 350px;
+  width: 100%;
+  margin: 20px 20px 20px 20px;
+  text-align: center;
 }
 
 .overview-box {
-    border-style: solid;
-    border-color: black;
-    margin: 0px 30px 20px 30px;
+  border-style: solid;
+  border-color: black;
+  margin: 0px 30px 20px 30px;
+}
+
+.info-display {
+  color: #e3e3e3;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
