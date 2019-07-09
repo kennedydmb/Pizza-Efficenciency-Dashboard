@@ -32,39 +32,45 @@ function makeGraphs(error, staffData) {
 function show_rank_balance(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
     var dim = ndx.dimension(dc.pluck('Rank'));
-    //then groups these together
-    var group = dim.group();
 
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["#FFAA00", "#6BE400", "#AA00A2"]);
+
+    var rankDim = ndx.dimension(function(d) {
+        return [d.Rank];
+    })
+    var rankGroup = rankDim.group();
 
     //creates a bar chart using the rank vs how many are in each rank
     dc.barChart("#rank-balance")
         .width(400)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-        .dimension(dim)
-        .group(group)
+        .dimension(rankDim)
+        .group(rankGroup)
         .transitionDuration(500)
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .elasticY(true)
         .colorAccessor(function(d) {
-            return d.key[3];
+            return d.key[0];
         })
         .colors(rankColors)
         .xAxisLabel("Rank")
+        .yAxisLabel("Number of Employees")
         .yAxis().ticks(20);
 }
 
 function show_average_time_by_rank(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
-    var dim = ndx.dimension(dc.pluck('Rank'));
-
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["#FFAA00", "#6BE400", "#AA00A2"]);
+
+    var rankDim = ndx.dimension(function(d) {
+        return [d.Rank];
+    })
 
     function add_item(p, v) {
         p.count++;
@@ -91,13 +97,13 @@ function show_average_time_by_rank(ndx) {
     }
 
 
-    var averageTimeByRank = dim.group().reduce(add_item, remove_item, initialise);
+    var averageTimeByRank = rankDim.group().reduce(add_item, remove_item, initialise);
 
     dc.barChart("#average-time-rank")
         .width(400)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-        .dimension(dim)
+        .dimension(rankDim)
         .group(averageTimeByRank)
         .valueAccessor(function(d) {
             return d.value.average;
@@ -107,7 +113,7 @@ function show_average_time_by_rank(ndx) {
         .xUnits(dc.units.ordinal)
         .elasticY(true)
         .colorAccessor(function(d) {
-            return d.key[3];
+            return d.key[0];
         })
         .colors(rankColors)
         .xAxisLabel("Rank")
@@ -117,11 +123,14 @@ function show_average_time_by_rank(ndx) {
 //function to show average years of service vs rank
 function show_years_of_service_vs_rank(ndx) {
     //takes all of the ranks from the Results.csv and counts how many are in each
-    var dim = ndx.dimension(dc.pluck('Rank'));
 
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["#FFAA00", "#6BE400", "#AA00A2"]);
+
+    var rankDim = ndx.dimension(function(d) {
+        return [d.Rank];
+    })
 
     function add_item(p, v) {
         p.count++;
@@ -148,13 +157,13 @@ function show_years_of_service_vs_rank(ndx) {
     }
 
 
-    var averageYearsVsRank = dim.group().reduce(add_item, remove_item, initialise);
+    var averageYearsVsRank = rankDim.group().reduce(add_item, remove_item, initialise);
 
     dc.barChart("#years-service-against-rank")
         .width(400)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-        .dimension(dim)
+        .dimension(rankDim)
         .group(averageYearsVsRank)
         .valueAccessor(function(d) {
             return d.value.average;
@@ -164,7 +173,7 @@ function show_years_of_service_vs_rank(ndx) {
         .xUnits(dc.units.ordinal)
         .elasticY(true)
         .colorAccessor(function(d) {
-            return d.key[3];
+            return d.key[0];
         })
         .colors(rankColors)
         .xAxisLabel("Rank")
@@ -219,7 +228,7 @@ function show_course_balance(ndx) {
 
     var courseColors = d3.scale.ordinal()
         .domain(["AMC", "BMC", "Intro"])
-        .range(["purple", "orange", "maroon"]);
+        .range(["white", "black", "maroon"]);
 
     var courseColorDim = ndx.dimension(function(d) {
         return [d.Course];
@@ -243,6 +252,7 @@ function show_course_balance(ndx) {
         })
         .colors(courseColors)
         .xAxisLabel("Course")
+        .yAxisLabel("Number of Employees")
         .yAxis().ticks(20);
 }
 
@@ -259,7 +269,7 @@ function show_fastest_and_slowest_pizza_maker(ndx) {
     d3.select('#minPizzaTimeNamePosition')
         .text(minPizzaTimeNamePosition);
     d3.select('#maxPizzaTimeNamePosition')
-        .text(maxPizzaTimeNamePosition);   
+        .text(maxPizzaTimeNamePosition);
 
 }
 
@@ -298,21 +308,21 @@ function show_number_of_staff(ndx) {
     }
 
     var staffCounter = ndx.groupAll().reduce(add_item, remove_item, initialise);
-    
+
     dc.numberDisplay("#managerCount")
         .formatNumber(d3.format(".0"))
         .valueAccessor(function(d) {
             return d.manager_count; // no .value here
         })
         .group(staffCounter);
-        
+
     dc.numberDisplay("#mitCount")
         .formatNumber(d3.format(".0"))
         .valueAccessor(function(d) {
             return d.mit_count; // no .value here
         })
         .group(staffCounter);
-        
+
     dc.numberDisplay("#instoreCount")
         .formatNumber(d3.format(".0"))
         .valueAccessor(function(d) {
@@ -391,9 +401,15 @@ function show_longest_and_shortest_serving_worker(ndx) {
     var serviceDim = ndx.dimension(dc.pluck("YearsService"));
     var minServiceName = serviceDim.bottom(1)[0].Name;
     var maxServiceName = serviceDim.top(1)[0].Name;
+    var minServiceNameRank = serviceDim.bottom(1)[0].Rank;
+    var maxServiceNameRank = serviceDim.top(1)[0].Rank;
     d3.select('#minServiceName')
         .text(minServiceName);
     d3.select('#maxServiceName')
         .text(maxServiceName);
+    d3.select('#minServiceNameRank')
+        .text(minServiceNameRank);
+    d3.select('#maxServiceNameRank')
+        .text(maxServiceNameRank);
 
 }
