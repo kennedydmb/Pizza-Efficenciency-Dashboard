@@ -1,35 +1,48 @@
 #managerCount {
-  color: purple;
+  color: #FFAA00;
+}
+
+#mitCount {
+  color: #6BE400;
+}
+
+#instoreCount {
+  color: #AA00A2;
 }
 
 body {
-  background-image: linear-gradient(to bottom, #06266F, black);
+  background-image: linear-gradient(to bottom right, #3E94D1, #65A5D1);
 }
 
-h1 {
+h1,
+h2,
+h3 {
   text-align: center;
   color: #e3e3e3;
 }
 
 .chart-box,
 .box {
-  background-color: #4671D5;
-}
-
-.chart-box {
-  border-radius: 3px;
-  margin: 20px 20px 20px 20px;
-  padding: 5px 5px 5px 5px;
-  height: 350px;
-  
+  background-color: #0A64A4;
 }
 
 .box {
-  border-radius: 5px;
-  height: 350px;
-  width: 100%;
+  border-radius: 3px;
   margin: 20px 20px 20px 20px;
+  padding: 5px 5px 5px 5px;
+  height: 390px;
+  width: 100%;
   text-align: center;
+}
+
+.good-result {
+  background-color: #67AB2B;
+  color: black;
+}
+
+.bad-result {
+  background-color: orange;
+  color: black;
 }
 
 .overview-box {
@@ -43,7 +56,11 @@ h1 {
 }
 
 .vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.svg-div {
+  margin: 0 auto;
 }
