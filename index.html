@@ -19,6 +19,7 @@
     <script type="text/javascript" src="static/js/crossfilter.min.js"></script>
     <script type="text/javascript" src="static/js/dc.min.js"></script>
     <script type="text/javascript" src="static/js/queue.min.js"></script>
+    
     <!-- Script for our js -->
     <script type="text/javascript" src="static/js/graph.js"></script>
 
@@ -26,10 +27,8 @@
 
 <body>
     <div class="container-fluid">
+        <hr/>
         <h1>Staff Results Dashboard</h1>
-        <div class="row">
-            <div id="rank-selector"></div>
-        </div>
         <hr/>
         <div class="row justify-content-around">
             <div class="col-md-3 box" id="rank-balance">
@@ -42,14 +41,20 @@
                 <h3 class="text-center">Staff Numbers</h3>
                 <hr/>
                 <div class="justify-content-around">
-                    <div class="info-display col-xs-6">
-                        <p>Managers: <span id="managerCount"></span></p>
-                        <p>Managers In Training: <span id="mitCount"></span></p>
-                        <p>Instores: <span id="instoreCount"></span></p>
-                    </div>
-                    <div class="info-display col-xs-6">
-                        <p class="good-result">Longest Serving: <span id=maxServiceName></span> (<span id="maxServiceNameRank"></span>)</p>
-                        <p class="good-result">Newest Member: <span id=minServiceName></span> (<span id="minServiceNameRank"></span>)</p>
+                    <div class="info-display">
+                        <div class="col-xs-6">
+                            <p class="managerCount">Managers: <span id="managerCount"></span></p>
+                            <p class="mitCount">Managers In Training: <span id="mitCount"></span></p>
+                            <p class="instoreCount">Instores: <span id="instoreCount"></span></p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p class="serving-info">Longest Serving:
+                                <p class="good-result" id="maxServiceName"></p>
+                            </p>
+                            <p class="serving-info">Newest Member:
+                                <p class="good-result" id="minServiceName"></p>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,24 +63,36 @@
             <div class="col-md-3 box" id="average-time-rank">
                 <h3>Average Pizza Making Time</h3>
             </div>
-            <div class="col-md-3 box" id="years-service-against-pizza-time"></div>
+            <div class="col-md-3 box" id="years-service-against-pizza-time">
+                <h3 class="text-center">Pizza Making Time vs Years Service</h3>
+            </div>
             <div class="col-md-4 offset-md-2 box">
                 <h3 class="text-center">Performance</h3>
                 <hr/>
+
                 <div class="justify-content-around">
-                    <div class="info-display col-xs-6">
-                        <p class="good-result">Under 40s: <span id="under40Secs"></span> </p>
-                        <p class="bad-result">Over 40s: <span id="over40Secs"></span></span></p>
-                    </div>
-                    <div class="info-display col-xs-6">
-                        <p class="good-result">Fastest Pizza Maker: <span id=minPizzaTimeName></span> (<span id="minPizzaTimeNamePosition"></span>)</p>
-                        <p class="bad-result">Slowest Pizza Maker: <span id=maxPizzaTimeName></span> (<span id="maxPizzaTimeNamePosition"></span>)</p>
+                    <div class="info-display">
+                        <div class="col-xs-6">
+                            <p class="good-result">Under 40s: <span id="under40Secs"></span></p>
+                            <p class="bad-result">Over 40s: <span id="over40Secs"></span></p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p class="serving-info">Fastest Pizza Maker:
+                                <p class="good-result" id=minPizzaTimeName></p>
+                            </p>
+                            <p class="serving-info">Slowest Pizza Maker:
+                                <p class="bad-result" id=maxPizzaTimeName></p>
+                            </p>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <hr/>
-        <div class="row">
+        <h1>Additional Info</h1>
+        <hr/>
+        <div class="row justify-content-around">
             <div class="col-md-3 box" id="course-balance">
                 <h3>Course Balance</h3>
             </div>

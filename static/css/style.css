@@ -1,13 +1,22 @@
-#managerCount {
-  color: #FFAA00;
+.managerCount {
+  background-color: #FFAA00;
+  padding: 16px;
+  color: black;
+  font-size: x-large;
 }
 
-#mitCount {
-  color: #6BE400;
+.mitCount {
+  background-color: #6BE400;
+  padding: 16px;
+  color: black;
+  font-size: large;
 }
 
-#instoreCount {
-  color: #AA00A2;
+.instoreCount {
+  background-color: #AA00A2;
+  padding: 16px;
+  color: white;
+  font-size: large;
 }
 
 body {
@@ -21,28 +30,29 @@ h3 {
   color: #e3e3e3;
 }
 
-.chart-box,
 .box {
-  background-color: #0A64A4;
-}
-
-.box {
+  background-color: #0A64A499;
   border-radius: 3px;
   margin: 20px 20px 20px 20px;
   padding: 5px 5px 5px 5px;
   height: 390px;
   width: 100%;
   text-align: center;
+  font-weight: bold;
 }
 
 .good-result {
   background-color: #67AB2B;
+  padding: 16px;
   color: black;
+  font-size: x-large;
 }
 
 .bad-result {
   background-color: orange;
+  padding: 16px;
   color: black;
+  font-size: x-large;
 }
 
 .overview-box {
@@ -53,14 +63,14 @@ h3 {
 
 .info-display {
   color: #e3e3e3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  margin-top: 30px;
+  transform: translate(-50%, -50%);
 }
 
-.vcenter {
-  display: inline-block;
-  vertical-align: middle;
-  float: none;
-}
-
-.svg-div {
-  margin: 0 auto;
+.serving-info {
+  background-color: green;
 }
