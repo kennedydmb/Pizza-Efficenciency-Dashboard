@@ -206,7 +206,8 @@ function show_years_service_vs_pizza_time(ndx) {
         .brushOn(false)
         .symbolSize(8)
         .clipPadding(10)
-        .yAxisLabel("Seconds")
+        .yAxisLabel("Pizza Making Time (Secs)")
+        .xAxisLabel("Years Service")
         .title(function(d) {
             return d.key[2] + ", time: " + d.key[1] + "s"
         })
@@ -216,7 +217,7 @@ function show_years_service_vs_pizza_time(ndx) {
         .colors(rankColors)
         .dimension(pizzaTimeDim)
         .group(experienceRankGroup)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 });
+        .margins({ top: 10, right: 50, bottom: 50, left: 50 });
 
 }
 
@@ -258,19 +259,12 @@ function show_course_balance(ndx) {
 
 function show_fastest_and_slowest_pizza_maker(ndx) {
     var timeDim = ndx.dimension(dc.pluck("PizzaTime"));
-    var minPizzaTimeName = timeDim.bottom(1)[0].Name;
-    var maxPizzaTimeName = timeDim.top(1)[0].Name;
-    var minPizzaTimeNamePosition = timeDim.bottom(1)[0].Rank;
-    var maxPizzaTimeNamePosition = timeDim.top(1)[0].Rank;
+    var minPizzaTimeName = timeDim.bottom(1)[0].Name + " (" + timeDim.bottom(1)[0].Rank + ")";
+    var maxPizzaTimeName = timeDim.top(1)[0].Name + " (" + timeDim.top(1)[0].Rank + ")";
     d3.select('#minPizzaTimeName')
         .text(minPizzaTimeName);
     d3.select('#maxPizzaTimeName')
         .text(maxPizzaTimeName);
-    d3.select('#minPizzaTimeNamePosition')
-        .text(minPizzaTimeNamePosition);
-    d3.select('#maxPizzaTimeNamePosition')
-        .text(maxPizzaTimeNamePosition);
-
 }
 
 function show_number_of_staff(ndx) {
@@ -399,17 +393,12 @@ function show_percentage_split_of_under_40_seconds(ndx) {
 
 function show_longest_and_shortest_serving_worker(ndx) {
     var serviceDim = ndx.dimension(dc.pluck("YearsService"));
-    var minServiceName = serviceDim.bottom(1)[0].Name;
-    var maxServiceName = serviceDim.top(1)[0].Name;
-    var minServiceNameRank = serviceDim.bottom(1)[0].Rank;
-    var maxServiceNameRank = serviceDim.top(1)[0].Rank;
+    var minServiceName = serviceDim.bottom(1)[0].Name + " " + serviceDim.bottom(1)[0].YearsService + " Yr";
+    var maxServiceName = serviceDim.top(1)[0].Name + " " + serviceDim.top(1)[0].YearsService + " Yr";
     d3.select('#minServiceName')
         .text(minServiceName);
     d3.select('#maxServiceName')
         .text(maxServiceName);
-    d3.select('#minServiceNameRank')
-        .text(minServiceNameRank);
-    d3.select('#maxServiceNameRank')
-        .text(maxServiceNameRank);
+
 
 }
