@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -22,31 +21,37 @@
     
     <!-- Script for our js -->
     <script type="text/javascript" src="static/js/graph.js"></script>
-
 </head>
 
 <body>
     <div class="container-fluid">
+        <!-- Main section of the dashboard -->
         <hr/>
         <h1>Staff Results Dashboard</h1>
         <hr/>
+        <!-- First row of dashboard -->
         <div class="row justify-content-around">
+            <!-- Bar chart showing rank balance -->
             <div class="col-md-3 box" id="rank-balance">
                 <h3>Rank Balance</h3>
             </div>
+            <!-- Bar chart showing average years of service against rank -->
             <div class="col-md-3 box" id="years-service-against-rank">
                 <h3>Average Years Service</h3>
             </div>
+            <!-- Some in depth information regarding staff numbers -->
             <div class="col-md-4 offset-md-2 box">
                 <h3 class="text-center">Staff Numbers</h3>
                 <hr/>
                 <div class="justify-content-around">
                     <div class="info-display">
+                        <!-- Shows the number of Managers, MIT's and Instores -->
                         <div class="col-xs-6">
                             <p class="managerCount">Managers: <span id="managerCount"></span></p>
                             <p class="mitCount">Managers In Training: <span id="mitCount"></span></p>
                             <p class="instoreCount">Instores: <span id="instoreCount"></span></p>
                         </div>
+                        <!-- Shows who the longest and shortest serving staff are -->
                         <div class="col-xs-6">
                             <p class="serving-info">Longest Serving:
                                 <p class="good-result" id="maxServiceName"></p>
@@ -59,23 +64,28 @@
                 </div>
             </div>
         </div>
+        <!-- Second row of dashboard -->
         <div class="row justify-content-around">
+            <!-- Bar chart showing average time to make a pizza by rank -->
             <div class="col-md-3 box" id="average-time-rank">
                 <h3>Average Pizza Making Time</h3>
             </div>
+            <!-- Scatterplot showing years of service against time to make a pizza -->
             <div class="col-md-3 box" id="years-service-against-pizza-time">
                 <h3 class="text-center">Pizza Making Time vs Years Service</h3>
             </div>
+            <!-- Some in depth information of employee performance -->
             <div class="col-md-4 offset-md-2 box">
                 <h3 class="text-center">Performance</h3>
                 <hr/>
-
                 <div class="justify-content-around">
                     <div class="info-display">
+                        <!-- Shows the percentage of employee times above and below 40s -->
                         <div class="col-xs-6">
                             <p class="good-result">Under 40s: <span id="under40Secs"></span></p>
                             <p class="bad-result">Over 40s: <span id="over40Secs"></span></p>
                         </div>
+                        <!-- Shows who has the quickest time, and who the lowest -->
                         <div class="col-xs-6">
                             <p class="serving-info">Fastest Pizza Maker:
                                 <p class="good-result" id=minPizzaTimeName></p>
@@ -89,16 +99,23 @@
 
             </div>
         </div>
+        <!-- Second section of the dashboard -->
         <hr/>
         <h1>Additional Info</h1>
         <hr/>
         <div class="row justify-content-around">
+            <!-- Shows the balance of staff for each training course -->
             <div class="col-md-3 box" id="course-balance">
                 <h3>Course Balance</h3>
             </div>
+            <!-- Shows any additional information regarding the dashboard -->
+            <div class="col-md-7 box">
+                <h3>Source information</h3>
+                <p>This dashboard was constructed using staff data collected for
+                the month of June 2019</p>
+            </div>
         </div>
     </div>
-
 </body>
 
 </html>

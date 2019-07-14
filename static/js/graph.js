@@ -1,19 +1,20 @@
 queue()
+//d3.js interprets the JSON data
     .defer(d3.json, "data/results.json")
     .await(makeGraphs)
 
-//function for making and rendering graphs
+// For calling graph functions and rendering
 function makeGraphs(error, staffData) {
     var ndx = crossfilter(staffData);
-
+    // Changes PizzaTime from a string to an integer
     staffData.forEach(function(d) {
         d.PizzaTime = parseInt(d.PizzaTime);
     })
-
+    // Changes YearsService from string to integer
     staffData.forEach(function(d) {
         d.YearsService = parseInt(d.YearsService);
     })
-
+    // Calls all data functions
     show_rank_balance(ndx);
     show_average_time_by_rank(ndx)
     show_years_of_service_vs_rank(ndx);
@@ -28,15 +29,15 @@ function makeGraphs(error, staffData) {
 
 }
 
-//function to show the balance in rank
+// Bar chart showing the amount of staff in each rank
 function show_rank_balance(ndx) {
-    //takes all of the ranks from the Results.csv and counts how many are in each
+    // Takes all of the ranks from the Results.csv and counts how many are in each
     var dim = ndx.dimension(dc.pluck('Rank'));
-
+    // Assigns colors to each rank
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["#FFAA00", "#6BE400", "#AA00A2"]);
-
+    // Create a variable containing the Rank dimension
     var rankDim = ndx.dimension(function(d) {
         return [d.Rank];
     })
@@ -62,12 +63,13 @@ function show_rank_balance(ndx) {
         .yAxis().ticks(20);
 }
 
+// Bar chart to show the average service time by rank
 function show_average_time_by_rank(ndx) {
-    //takes all of the ranks from the Results.csv and counts how many are in each
+    // Assigns colors to each rank
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["#FFAA00", "#6BE400", "#AA00A2"]);
-
+    // Create a variable containing the Rank dimension
     var rankDim = ndx.dimension(function(d) {
         return [d.Rank];
     })
@@ -120,14 +122,14 @@ function show_average_time_by_rank(ndx) {
         .yAxisLabel("Seconds")
         .yAxis().ticks(10);
 }
-//function to show average years of service vs rank
-function show_years_of_service_vs_rank(ndx) {
-    //takes all of the ranks from the Results.csv and counts how many are in each
 
+// Bar chart to show average years of service vs rank
+function show_years_of_service_vs_rank(ndx) {
+    // Assigns colors to each rank
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["#FFAA00", "#6BE400", "#AA00A2"]);
-
+    // Create a variable containing the Rank dimension
     var rankDim = ndx.dimension(function(d) {
         return [d.Rank];
     })
@@ -181,8 +183,9 @@ function show_years_of_service_vs_rank(ndx) {
         .yAxis().ticks(10);
 }
 
+// Scatterplot to show years of service against pizza making time
 function show_years_service_vs_pizza_time(ndx) {
-
+    // Assigns colors to each rank
     var rankColors = d3.scale.ordinal()
         .domain(["Manager", "MIT", "Instore"])
         .range(["#FFAA00", "#6BE400", "#AA00A2"]);
@@ -195,7 +198,7 @@ function show_years_service_vs_pizza_time(ndx) {
         return [d.YearsService, d.PizzaTime, d.Name, d.Rank]
     });
     var experienceRankGroup = pizzaTimeDim.group();
-
+    // Finds the top and bottom 1 from YearsService
     var minExperience = yearsDim.bottom(1)[0].YearsService;
     var maxExperience = yearsDim.top(1)[0].YearsService;
 
@@ -221,21 +224,20 @@ function show_years_service_vs_pizza_time(ndx) {
 
 }
 
+// Bar chart to show the number of staff that have completed each of the courses
 function show_course_balance(ndx) {
-    //takes all of the ranks from the Results.csv and counts how many are in each
+    // Takes all of the ranks from the Results.csv and counts how many are in each
     var dim = ndx.dimension(dc.pluck('Course'));
-    //then groups these together
+    // Then groups these together
     var group = dim.group();
-
+    // Assigns colors to each course
     var courseColors = d3.scale.ordinal()
         .domain(["AMC", "BMC", "Intro"])
         .range(["white", "black", "maroon"]);
-
+    // Create a variable containing the Course dimension
     var courseColorDim = ndx.dimension(function(d) {
         return [d.Course];
     })
-
-
 
     //creates a bar chart using the rank vs how many are in each rank
     dc.barChart("#course-balance")
@@ -257,6 +259,7 @@ function show_course_balance(ndx) {
         .yAxis().ticks(20);
 }
 
+// Shows the names of the fastest and slowest pizza makers
 function show_fastest_and_slowest_pizza_maker(ndx) {
     var timeDim = ndx.dimension(dc.pluck("PizzaTime"));
     var minPizzaTimeName = timeDim.bottom(1)[0].Name + " (" + timeDim.bottom(1)[0].Rank + ")";
@@ -267,6 +270,7 @@ function show_fastest_and_slowest_pizza_maker(ndx) {
         .text(maxPizzaTimeName);
 }
 
+// Bar chart to show the number of staff by rank 
 function show_number_of_staff(ndx) {
     var dim = ndx.dimension(dc.pluck('Rank'));
 
@@ -325,6 +329,8 @@ function show_number_of_staff(ndx) {
         .group(staffCounter);
 }
 
+/* Number display that shows the percentages of pizza making times 
+above and below 40 seconds */
 function show_percentage_split_of_under_40_seconds(ndx) {
     var percentageUnder40 = ndx.groupAll().reduce(
         function(p, v) {
@@ -391,6 +397,7 @@ function show_percentage_split_of_under_40_seconds(ndx) {
         .group(percentageOver40);
 }
 
+// Shows the names of the longest and shortest years of service
 function show_longest_and_shortest_serving_worker(ndx) {
     var serviceDim = ndx.dimension(dc.pluck("YearsService"));
     var minServiceName = serviceDim.bottom(1)[0].Name + " " + serviceDim.bottom(1)[0].YearsService + " Yr";
@@ -399,6 +406,4 @@ function show_longest_and_shortest_serving_worker(ndx) {
         .text(minServiceName);
     d3.select('#maxServiceName')
         .text(maxServiceName);
-
-
 }
