@@ -45,7 +45,7 @@ function show_rank_balance(ndx) {
 
     //creates a bar chart using the rank vs how many are in each rank
     dc.barChart("#rank-balance")
-        .width(400)
+        .width(350)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .dimension(rankDim)
@@ -102,7 +102,7 @@ function show_average_time_by_rank(ndx) {
     var averageTimeByRank = rankDim.group().reduce(add_item, remove_item, initialise);
 
     dc.barChart("#average-time-rank")
-        .width(400)
+        .width(350)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .dimension(rankDim)
@@ -162,7 +162,7 @@ function show_years_of_service_vs_rank(ndx) {
     var averageYearsVsRank = rankDim.group().reduce(add_item, remove_item, initialise);
 
     dc.barChart("#years-service-against-rank")
-        .width(400)
+        .width(350)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .dimension(rankDim)
@@ -203,7 +203,7 @@ function show_years_service_vs_pizza_time(ndx) {
     var maxExperience = yearsDim.top(1)[0].YearsService;
 
     dc.scatterPlot('#years-service-against-pizza-time')
-        .width(400)
+        .width(350)
         .height(300)
         .x(d3.scale.linear().domain([minExperience, maxExperience]))
         .brushOn(false)
@@ -241,7 +241,7 @@ function show_course_balance(ndx) {
 
     //creates a bar chart using the rank vs how many are in each rank
     dc.barChart("#course-balance")
-        .width(400)
+        .width(350)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .dimension(dim)
