@@ -2,21 +2,21 @@
   background-color: #FFAA00;
   padding: 16px;
   color: black;
-  font-size: x-large;
+  font-size: medium;
 }
 
 .mitCount {
   background-color: #6BE400;
   padding: 16px;
   color: black;
-  font-size: large;
+  font-size: medium;
 }
 
 .instoreCount {
   background-color: #AA00A2;
   padding: 16px;
   color: white;
-  font-size: large;
+  font-size: medium;
 }
 
 body {
@@ -32,27 +32,31 @@ h3 {
 
 .box {
   background-color: #0A64A499;
-  border-radius: 3px;
-  margin: 20px 20px 20px 20px;
   padding: 5px 5px 5px 5px;
   height: 390px;
-  width: 100%;
+  margin: auto;
   text-align: center;
   font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.center {
+  text-align: center;
 }
 
 .good-result {
   background-color: #67AB2B;
   padding: 16px;
   color: black;
-  font-size: x-large;
+  font-size: medium;
 }
 
 .bad-result {
   background-color: orange;
   padding: 16px;
   color: black;
-  font-size: x-large;
+  font-size: medium;
 }
 
 .overview-box {
@@ -69,6 +73,12 @@ h3 {
   width: 100%;
   margin-top: 30px;
   transform: translate(-50%, -50%);
+}
+
+.result-display {
+  width: 75%;
+  text-align: center;
+  margin: 10px auto 10px auto;
 }
 
 .serving-info {
