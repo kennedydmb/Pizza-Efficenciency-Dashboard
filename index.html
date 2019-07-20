@@ -24,31 +24,44 @@
 </head>
 
 <body>
+
+    <!-- Dashboard navbar -->
     <div class="container-fluid">
-        <!-- Main section of the dashboard -->
-        <hr/>
-        <h1>Staff Results Dashboard</h1>
-        <hr/>
+        <nav class="navbar navbar-fixed-top navbar-expand heading" id="navbar">
+            <ul class="navbar-nav w-100">
+                <!-- Dashboard heading -->
+                <li class="col-xs-9">
+                    <h1>Staff Results Dashboard</h1>
+                </li>
+                <!-- Button to reset graphs -->
+                <li class="col-xs-3">
+                    <a class="btn btn-success btn-fix" href="javascript: dc.filterAll(); dc.redrawAll();">Reset Graphs</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- Begining of dahboard -->
+    <div class="container-fluid">
         <!-- First row of dashboard -->
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- Some in depth information regarding staff numbers -->
-            <div class="col-xs-11 col-md-5 box">
+            <div class="box">
                 <h3 class="text-center">Staff Numbers</h3>
                 <hr/>
                 <div class="justify-content-around">
                     <div class="info-display">
                         <!-- Shows the number of Managers, MIT's and Instores -->
                         <div class="col-xs-6">
-                            <p class="managerCount result-display">Managers: <span id="managerCount"></span></p>
-                            <p class="mitCount result-display">MITs: <span id="mitCount"></span></p>
-                            <p class="instoreCount result-display">Instores: <span id="instoreCount"></span></p>
+                            <p class="managerCount result-display">Managers: <span class="readable-text" id="managerCount"></span></p>
+                            <p class="mitCount result-display">MITs: <span class="readable-text" id="mitCount"></span></p>
+                            <p class="instoreCount result-display">Instores: <span class="readable-text" id="instoreCount"></span></p>
                         </div>
                         <!-- Shows who the longest and shortest serving staff are -->
                         <div class="col-xs-6">
-                            <p class="serving-info result-display">Longest Serving:
+                            <p class="serving-info result-display readable-text">Longest Serving:
                                 <p class="good-result result-display" id="maxServiceName"></p>
                             </p>
-                            <p class="serving-info result-display">Newest Member:
+                            <p class="serving-info result-display readable-text">Newest Member:
                                 <p class="good-result result-display" id="minServiceName"></p>
                             </p>
                         </div>
@@ -56,42 +69,42 @@
                 </div>
             </div>
             <!-- Shows any additional information regarding the dashboard -->
-            <div class="col-xs-11 col-md-5 box">
+            <div class="box">
                 <h3>Source information</h3>
                 <hr/>
-                <p>This dashboard was constructed using staff data collected for the month of June 2019</p>
+                <p class="info-display readable-text">This dashboard was constructed using staff data collected for the month of June 2019</p>
             </div>
         </div>
         <!-- Second row of dashboard -->
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- Bar chart showing rank balance -->
-            <div class="col-xs-11 col-md-5 box" id="rank-balance">
+            <div class="box" id="rank-balance">
                 <h3>Rank Balance</h3>
                 <hr/>
             </div>
             <!-- Bar chart showing average years of service against rank -->
-            <div class="col-xs-11 col-md-5 box" id="years-service-against-rank">
+            <div class="box" id="years-service-against-rank">
                 <h3>Average Years Service</h3>
                 <hr/>
             </div>
         </div>
         <!-- Third row of dashboard -->
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- Bar chart showing average time to make a pizza by rank -->
-            <div class="col-xs-11 col-md-5 box" id="average-time-rank">
+            <div class="box" id="average-time-rank">
                 <h3>Average Pizza Making Time</h3>
                 <hr/>
             </div>
             <!-- Scatterplot showing years of service against time to make a pizza -->
-            <div class="col-xs-11 col-md-5 box" id="years-service-against-pizza-time">
+            <div class="box" id="years-service-against-pizza-time">
                 <h3 class="text-center">Pizza Making Time vs Years Service</h3>
                 <hr/>
             </div>
         </div>
         <!-- Fourth section of the dashboard -->
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- Some in depth information of employee performance -->
-            <div class="col-xs-11 col-md-5 box">
+            <div class="box">
                 <h3 class="text-center">Performance</h3>
                 <hr/>
                 <div class="justify-content-around">
@@ -103,18 +116,18 @@
                         </div>
                         <!-- Shows who has the quickest time, and who the lowest -->
                         <div class="col-xs-6">
-                            <p class="serving-info result-display">Fastest Pizza Maker:
-                                <p class="good-result result-display" id=minPizzaTimeName></p>
+                            <p class="serving-info result-display readable-text">Fastest Pizza Maker:
+                                <p class="good-result result-display" id="minPizzaTimeName"></p>
                             </p>
-                            <p class="serving-info result-display">Slowest Pizza Maker:
-                                <p class="bad-result result-display" id=maxPizzaTimeName></p>
+                            <p class="serving-info result-display readable-text">Slowest Pizza Maker:
+                                <p class="bad-result result-display" id="maxPizzaTimeName"></p>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Shows the balance of staff for each training course -->
-            <div class="col-xs-11 col-md-5 box" id="course-balance">
+            <div class="box" id="course-balance">
                 <h3>Course Balance</h3>
                 <hr/>
             </div>
