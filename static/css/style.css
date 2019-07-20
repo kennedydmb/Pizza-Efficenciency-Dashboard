@@ -15,7 +15,7 @@ h2,
 h3 {
   text-align: center;
   color: #e3e3e3;
-  margin: 12px;
+  font-size: 2em;
 }
 
 /* Formatting used for information display in result boxes -------------------*/
@@ -109,5 +109,5 @@ h3 {
 /* Fixes position of reset button on navbar ----------------------------------*/
 
 .btn-fix {
-  margin: 6px 0px 0px 0px;
+  display: inline-block;
 }
