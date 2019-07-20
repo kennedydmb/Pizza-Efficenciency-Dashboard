@@ -1,3 +1,56 @@
+/* Imports 'Nunito' font from google and corresponding font weights-----------*/
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:100,200,300,400,500,600,700');
+
+/* Formats properties used for whole page ------------------------------------*/
+
+body {
+  background-image: linear-gradient(to bottom right, #3BA3D0, #63AFD0);
+  margin-top: 88px;
+  font-family: "Nunito", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  text-align: center;
+  color: #e3e3e3;
+  margin: 12px;
+}
+
+/* Formatting used for information display in result boxes -------------------*/
+
+.good-result {
+  background-color: #67AB2B;
+  padding: 16px;
+  color: black;
+  font-size: medium;
+}
+
+.bad-result {
+  background-color: orange;
+  padding: 16px;
+  color: black;
+  font-size: medium;
+}
+
+.info-display {
+  color: #e3e3e3;
+  margin: 0.6em;
+}
+
+.result-display {
+  width: 90%;
+  text-align: center;
+  margin: 10px auto 10px auto;
+}
+
+.serving-info {
+  background-color: green;
+}
+
+/* Graph formatting ----------------------------------------------------------*/
+
 .managerCount {
   background-color: #FFAA00;
   padding: 16px;
@@ -19,68 +72,42 @@
   font-size: medium;
 }
 
-body {
-  background-image: linear-gradient(to bottom right, #3E94D1, #65A5D1);
-}
-
-h1,
-h2,
-h3 {
-  text-align: center;
-  color: #e3e3e3;
-}
+/* Container for graphs and information displays -----------------------------*/
 
 .box {
-  background-color: #0A64A499;
-  padding: 5px 5px 5px 5px;
-  height: 390px;
-  margin: auto;
+  background-image: linear-gradient(to bottom right, #225E79, #0772A1);
+  padding: 0.7em;
+  height: 405px;
   text-align: center;
   font-weight: bold;
   margin-top: 15px;
   margin-bottom: 15px;
+  width: 550px;
+  margin: 1em;
+  border-radius: 5px
 }
 
-.center {
+/* Formatting for navbar -----------------------------------------------------*/
+
+.heading {
+  background-image: linear-gradient(to bottom right, #225E79, #0772A1);
+  padding: 1em;
+  height: 80px;
+  margin: 0 0 -15px 0;
   text-align: center;
+  font-weight: bold;
 }
 
-.good-result {
-  background-color: #67AB2B;
-  padding: 16px;
-  color: black;
-  font-size: medium;
+/* Fixes issue where default font weight would be unreadable in white --------*/
+
+.readable-text {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
 }
 
-.bad-result {
-  background-color: orange;
-  padding: 16px;
-  color: black;
-  font-size: medium;
-}
 
-.overview-box {
-  border-style: solid;
-  border-color: black;
-  margin: 0px 30px 20px 30px;
-}
+/* Fixes position of reset button on navbar ----------------------------------*/
 
-.info-display {
-  color: #e3e3e3;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  margin-top: 30px;
-  transform: translate(-50%, -50%);
-}
-
-.result-display {
-  width: 75%;
-  text-align: center;
-  margin: 10px auto 10px auto;
-}
-
-.serving-info {
-  background-color: green;
+.btn-fix {
+  margin: 6px 0px 0px 0px;
 }
