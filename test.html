@@ -1,0 +1,52 @@
+<!-- Second row of dashboard -->
+        <div class="row justify-content-between">
+            <!-- Bar chart showing rank balance -->
+            <div class="col-md-5 box" id="rank-balance">
+                <h3>Rank Balance</h3>
+            </div>
+            <!-- Bar chart showing average years of service against rank -->
+            <div class="col-md-5 box" id="years-service-against-rank">
+                <h3>Average Years Service</h3>
+            </div>
+        </div>
+        <!-- Third row of dashboard -->
+        <div class="row justify-content-between">
+            <!-- Bar chart showing average time to make a pizza by rank -->
+            <div class="col-md-5 box" id="average-time-rank">
+                <h3>Average Pizza Making Time</h3>
+            </div>
+            <!-- Scatterplot showing years of service against time to make a pizza -->
+            <div class="col-md-5 box" id="years-service-against-pizza-time">
+                <h3 class="text-center">Pizza Making Time vs Years Service</h3>
+            </div>
+        </div>
+        <!-- Fourth section of the dashboard -->
+        <div class="row justify-content-between">
+            <!-- Some in depth information of employee performance -->
+            <div class="col-md-5 offset-md-2 box">
+                <h3 class="text-center">Performance</h3>
+                <hr/>
+                <div class="justify-content-around">
+                    <div class="info-display">
+                        <!-- Shows the percentage of employee times above and below 40s -->
+                        <div class="col-xs-6">
+                            <p class="good-result">Under 40s: <span id="under40Secs"></span></p>
+                            <p class="bad-result">Over 40s: <span id="over40Secs"></span></p>
+                        </div>
+                        <!-- Shows who has the quickest time, and who the lowest -->
+                        <div class="col-xs-6">
+                            <p class="serving-info">Fastest Pizza Maker:
+                                <p class="good-result" id=minPizzaTimeName></p>
+                            </p>
+                            <p class="serving-info">Slowest Pizza Maker:
+                                <p class="bad-result" id=maxPizzaTimeName></p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Shows the balance of staff for each training course -->
+            <div class="col-md-5 box" id="course-balance">
+                <h3>Course Balance</h3>
+            </div>
+        </div>
