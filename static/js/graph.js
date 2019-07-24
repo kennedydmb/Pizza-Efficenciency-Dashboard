@@ -1,7 +1,7 @@
 queue()
 //d3.js interprets the JSON data
     .defer(d3.json, "data/results.json")
-    .await(makeGraphs)
+    .await(makeGraphs);
 
 // For calling graph functions and rendering
 function makeGraphs(error, staffData) {
@@ -9,14 +9,14 @@ function makeGraphs(error, staffData) {
     // Changes PizzaTime from a string to an integer
     staffData.forEach(function(d) {
         d.PizzaTime = parseInt(d.PizzaTime);
-    })
+    });
     // Changes YearsService from string to integer
     staffData.forEach(function(d) {
         d.YearsService = parseInt(d.YearsService);
-    })
+    });
     // Calls all data functions
     show_rank_balance(ndx);
-    show_average_time_by_rank(ndx)
+    show_average_time_by_rank(ndx);
     show_years_of_service_vs_rank(ndx);
     show_years_service_vs_pizza_time(ndx);
     show_course_balance(ndx);
@@ -40,7 +40,7 @@ function show_rank_balance(ndx) {
     // Create a variable containing the Rank dimension
     var rankDim = ndx.dimension(function(d) {
         return [d.Rank];
-    })
+    });
     var rankGroup = rankDim.group();
 
     //creates a bar chart using the rank vs how many are in each rank
@@ -72,7 +72,7 @@ function show_average_time_by_rank(ndx) {
     // Create a variable containing the Rank dimension
     var rankDim = ndx.dimension(function(d) {
         return [d.Rank];
-    })
+    });
 
     function add_item(p, v) {
         p.count++;
@@ -132,7 +132,7 @@ function show_years_of_service_vs_rank(ndx) {
     // Create a variable containing the Rank dimension
     var rankDim = ndx.dimension(function(d) {
         return [d.Rank];
-    })
+    });
 
     function add_item(p, v) {
         p.count++;
@@ -195,7 +195,7 @@ function show_years_service_vs_pizza_time(ndx) {
 
     //Returns an array with 4 parts
     var pizzaTimeDim = ndx.dimension(function(d) {
-        return [d.YearsService, d.PizzaTime, d.Name, d.Rank]
+        return [d.YearsService, d.PizzaTime, d.Name, d.Rank];
     });
     var experienceRankGroup = pizzaTimeDim.group();
     // Finds the top and bottom 1 from YearsService
@@ -212,7 +212,7 @@ function show_years_service_vs_pizza_time(ndx) {
         .yAxisLabel("Pizza Making Time (Secs)")
         .xAxisLabel("Years Service")
         .title(function(d) {
-            return d.key[2] + ", time: " + d.key[1] + "s"
+            return d.key[2] + ", time: " + d.key[1] + "s";
         })
         .colorAccessor(function(d) {
             return d.key[3];
@@ -237,7 +237,7 @@ function show_course_balance(ndx) {
     // Create a variable containing the Course dimension
     var courseColorDim = ndx.dimension(function(d) {
         return [d.Course];
-    })
+    });
 
     //creates a bar chart using the rank vs how many are in each rank
     dc.barChart("#course-balance")
@@ -348,8 +348,8 @@ function show_percentage_split_of_under_40_seconds(ndx) {
             return p;
         },
         function(p, v) {
-            return { count: 0, under_40: 0 }
-        },
+            return { count: 0, under_40: 0 };
+        }
     );
 
     dc.numberDisplay("#under40Secs")
@@ -380,8 +380,8 @@ function show_percentage_split_of_under_40_seconds(ndx) {
             return p;
         },
         function(p, v) {
-            return { count: 0, over_40: 0 }
-        },
+            return { count: 0, over_40: 0 };
+        }
     );
 
     dc.numberDisplay("#over40Secs")
