@@ -34,7 +34,7 @@ hierarchy.
 - As an Operations Director, I want to see how my employees are performing so 
 that I can see if our training is effective.
 - As a Trainer, I want to see how quickly each member of staff can make pizza 
-against how long they’ve worked for the company. Then I can see clearly who may 
+against how long they have worked for the company. Then I can see clearly who may 
 be in need of additional training, and give praise to those working well.
 - As a Store Manager, I want to see an overview of my store. Who is the quickest,
 who has served the longest, how many employees do I have, what percentage of my
