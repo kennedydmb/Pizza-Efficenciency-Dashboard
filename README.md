@@ -193,18 +193,13 @@ leads to it disappearing. Refresh button added to fix this issue.
 responsive to user interaction with the charts.
 
 ## Deployment
-This project was developed locally using VS Code. A repository was created on github and named 'GoT-Dashboard.' Regular commits were made and pushed to my Github repository.
+Developed locally using _AWS Cloud9._
 
-Very early on, I hosted the website on Github Pages. It was then regularly updated with my commits.
+Created repository on Github called _"Pizza-Efficenciency-Dashboard"_
 
-To initially deploy the project on Github Pages, the following steps were taken:
+Pushed local git commits to Github repository.
 
-Log into Github
-Select the repository synnea/GoT-Dashboard.
-Select the 'Settings' tab, which is the last tab in the top row.
-Use Cmd + F to open up a search window. Type in "GitHub Pages" and scroll automatically to the relevant section.
-Under Source, click the drop-down menu labelled None and select the master branch.
-Upon selecting the master branch, t the page refreshes automatically. The website is now deployed.
+Near the end of the project the project was then hosted on _Github Pages_.
 
 ### Content
 Data created using current pizza shop knowledge. All names and times are ficticious, but typical of a real environment.
