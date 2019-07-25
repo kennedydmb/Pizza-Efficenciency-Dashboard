@@ -112,7 +112,7 @@ h3 {
   display: inline-block;
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 410px) {
   h1 {
     font-size: 14px;
   }
@@ -122,5 +122,9 @@ h3 {
   }
   p{
     font-size: 14px!important;
+  }
+  .box{
+    margin: 15px 0 15px 0;
+    border-radius: 0px;
   }
 }
