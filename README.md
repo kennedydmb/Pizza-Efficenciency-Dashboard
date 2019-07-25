@@ -1,6 +1,15 @@
 # Interactive Frontend Development Project
 
 ## Milestone Project 2: Pizza Company Staff Dashboard.
+### Goal 
+To build an interactive front-end site that responds to the users' actions, allowing users to actively engage with data, alter the way the site displays the information to achieve their preferred goals.
+An application were users are able to derive answers to their specific questions.
+A service in which the site owner advances their own goals by providing this functionality, potentially by being a regular user themselves.
+
+The project chosen was to build an interactive dashboard that a pizza company could use
+to track employee performance.
+
+### The application
 A single page dashboard that gives an overview on staff performance. It can show:
 - How many members of staff of each rank.
 - Average length of service for each rank.
@@ -8,7 +17,7 @@ A single page dashboard that gives an overview on staff performance. It can show
 - Correlation between years of service and length of time to make a pizza.
 - An overview of some results. 
 - Who are the fastest and slowest pizza maker are.
-- Percentage of staff who can make pizzas under/over 40s.
+- Percentage of staff who can make pizzas under/over 40 seconds.
 - Who the longest and shortest serving workers are.
 
 Deployed on [GitHub Pages](https://kennedydmb.github.io/Pizza-Efficenciency-Dashboard/)
@@ -22,9 +31,14 @@ of a pizza company. This could be extended in future to include the entire staff
 hierarchy.
 
 ### User Stories.
-- As an Operations Director, I want to see how my employees are performing so that I can see if our training is effective.
-- As a Trainer, I want to see how quickly each member of staff can make pizza against how long they’ve worked for the company. Then I can see clearly who may be in need of additional training, and give praise to those working well.
-- As a Store Manager, I want to see an overview of my store. Who is the quickest, who has served the longest, how many employees do I have, what percentage of my workers are performing to the standard I have set.
+- As an Operations Director, I want to see how my employees are performing so 
+that I can see if our training is effective.
+- As a Trainer, I want to see how quickly each member of staff can make pizza 
+against how long they’ve worked for the company. Then I can see clearly who may 
+be in need of additional training, and give praise to those working well.
+- As a Store Manager, I want to see an overview of my store. Who is the quickest,
+who has served the longest, how many employees do I have, what percentage of my
+workers are performing to the standard I have set.
 
 ### Wireframe
 ![Wireframe](https://i.imgur.com/elsnDVc.png "Original Web App Wireframe")
@@ -101,6 +115,10 @@ Similarly to multiple stores, but with multiple months.
 Ability for staff to login, and see their own details, access training material
 and see ranking on leaderboards within the company.
 
+#### Result Adjustment
+Ability to change the results the user is looking for i.e percentage of pizzas made
+under 30 seconds.
+
 #### Upload Data
 Allow managers login the ability to upload new data.
 
@@ -108,7 +126,7 @@ Allow managers login the ability to upload new data.
 Increase the **JSON** fields to include surnames and store location.
 
 #### Donut Graph
-In addition to displaying the  **Under/Over 40s** as numbers, display as a donut
+In addition to displaying the  **Under/Over 40 Seconds** as numbers, display as a donut
 graph.
 
 ## Technologies Used
